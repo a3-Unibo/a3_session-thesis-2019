@@ -67,7 +67,7 @@ public class Script_Instance : GH_ScriptInstance
         {
             AgSys = new AgentSystem(P, V);
         }
-
+        
         if (go)
         {
             // update parameters
