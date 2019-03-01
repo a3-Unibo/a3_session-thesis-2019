@@ -13,6 +13,7 @@ using Grasshopper.Kernel.Types;
 // <Custom using>
 using System.Threading;
 using System.Threading.Tasks;
+using Noises;
 // </Custom using>
 
 
@@ -56,7 +57,7 @@ public class Script_Instance : GH_ScriptInstance
     /// Output parameters as ref arguments. You don't have to assign output parameters, 
     /// they will have a default value.
     /// </summary>
-    private void RunScript(bool reset, bool go, int mode, List<Point3d> P, List<Vector3d> V, double nR, double coS, double alS, double seS, double seR, ref object Ap, ref object Av)
+    private void RunScript(bool reset, bool go, int mode, List<Point3d> P, List<Vector3d> V, double nR, double coS, double alS, double seS, double seR, double fieSt, double fieSc, double fieT, double maxAng, ref object Ap, ref object Av)
     {
         // <Custom code>
         GH_Point[] ptsOut;
@@ -72,6 +73,10 @@ public class Script_Instance : GH_ScriptInstance
             AgSys.AlignmentStrength = alS;
             AgSys.SeparationStrength = seS;
             AgSys.SeparationRadius = seR;
+            AgSys.FieldStrength = fieSt;
+            AgSys.FieldScale = fieSc;
+            AgSys.FieldTime = fieT;
+            AgSys.MaxAngle = maxAng;
             /*
              if(condition)
              {}
@@ -118,6 +123,10 @@ public class Script_Instance : GH_ScriptInstance
         public double BoundingBoxSize;
         public double ContainmentStrength;
         RTree PointsRTree;
+        public double FieldStrength;
+        public double FieldTime;
+        public double FieldScale;
+        public double MaxAngle;
 
         // constructor
         public AgentSystem(List<Point3d> P, List<Vector3d> V)
@@ -320,6 +329,22 @@ public class Script_Instance : GH_ScriptInstance
                 desiredVelocity += Flock.SeparationStrength * separation;
             }
 
+            // -------------------------------- FIELD --------------------------------
+            ComputeField();
+        }
+
+        public void ComputeField()
+        {
+
+            Point3d p = new Point3d(position);
+            p *= Flock.FieldScale;
+            p += new Vector3d(0, 0, Flock.FieldTime);
+            double Angle = (Noise.Generate((float)p.X, (float)p.Y, (float)p.Z)-0.5)
+                * 2.0 * Flock.MaxAngle;
+            Vector3d field = Vector3d.XAxis;
+            field.Rotate(Angle, Vector3d.ZAxis);
+
+            desiredVelocity += Flock.FieldStrength * field;
         }
 
         public void Containment()
@@ -342,6 +367,7 @@ public class Script_Instance : GH_ScriptInstance
             desiredVelocity *= Flock.ContainmentStrength;
 
         }
+
 
 
         public void UpdateVelocityAndPosition()
