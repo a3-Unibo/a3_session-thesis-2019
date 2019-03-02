@@ -9,10 +9,6 @@ Tools used: Rhinoceros 3D v6 (includes Grasshopper), Visual Studio 2017.
 
 ---
 
-## AgentSystemFinal
-
-Contains .gh files, the Visual Studio project files and .sln file for the final version of the simulation. There are 3 .gh files: basic, intermediate and full-optional. Read the enclosed **README FIRST.txt** and **changelog.txt** files for full specifications.
-
 ## @ utilities
 
 Contains .gha asssemblies and .dll libraries and general purpose .gh definitions used in the workshop.
@@ -22,7 +18,7 @@ Contains .gha asssemblies and .dll libraries and general purpose .gh definitions
 **M00_Millipede FEM field.gh** - simple use of Millipede Grasshopper plugin to generate a scalar and vector field of structural information over a FEM model of a mesh surface  
 **M01_Millipede graphics generator.gh** - generates and bakes geometry for 3 different diagrams of Millipede generated data  
 *Millipede_data.ghdata* - this file is a sample of how data is passed between M00 and M01  
-**interpolate mesh data.gh** - interpolate scalar and vector data while performing a Catmull-Clark subdivision of a mesh - sometimes Millipede can be slow on big geometries. This definition allows the use of a lower-resolution mesh for faster analysis and interpolate data to use on a high-res mesh
+**interpolate mesh data.gh** - interpolate scalar and vector data while performing a Catmull-Clark subdivision of a mesh - sometimes Millipede can be slow on big geometries. This definition allows the use of a lower-resolution mesh for faster analysis and interpolate data to use on a high-res mesh  
 
 **Util_Clipping plane - Turntable base.3dm**  
 **Util-01_clipping plane anim.gh**  
@@ -88,5 +84,6 @@ Visual Studio project folder for the basic Craig Reynolds Flocking Agent System
 Visual Studio project folder for the basic Craig Reynolds Flocking Agent System + Field influence  
   
 #### VS_Code/AgentSystemFinal
-Visual Studio project folder for the evolved version of the Agent System - agents are capable of patrolling a mesh surface, read scalar and vector data and release elementary bodies along their trajectories whose formation results in a performative ornamentation
+Visual Studio project folder for the evolved version of the Agent System - agents are capable of patrolling a mesh surface, read scalar and vector data and release elementary bodies along their trajectories whose formation results in a performative ornamentation.  
+Contains .gh files, the Visual Studio project files and .sln file for the final version of the simulation. There are 3 .gh files: basic, intermediate and full-optional. Read the enclosed **README FIRST.txt** and **changelog.txt** files for full specifications.
 
