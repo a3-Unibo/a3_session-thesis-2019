@@ -13,7 +13,9 @@ Tools used: Rhinoceros 3D v6 (includes Grasshopper), Visual Studio 2017.
 
 Contains .gha asssemblies and .dll libraries and general purpose .gh definitions used in the workshop.
 
-**3Dpeople_20181116** - 3D people as meshes in 3 different resolutions
+**3Dpeople_20181116** - 3D people as meshes in 3 different resolutions  
+  
+**bitmaps in CS** - generate, load and save bitmaps from within C# components
 
 **M00_Millipede FEM field.gh** - simple use of Millipede Grasshopper plugin to generate a scalar and vector field of structural information over a FEM model of a mesh surface  
 **M01_Millipede graphics generator.gh** - generates and bakes geometry for 3 different diagrams of Millipede generated data  
