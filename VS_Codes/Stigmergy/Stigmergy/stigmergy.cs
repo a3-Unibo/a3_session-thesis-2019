@@ -176,7 +176,6 @@ public class Script_Instance : GH_ScriptInstance
     {
         // . . . . . . . . . . . . . . . . . . . . . . fields
         public List<Particle> Particles;
-        public RTree MeshRTree;
         public double seekRadius;
         public double seekIntensity;
         public double sensDist;
@@ -246,16 +245,12 @@ public class Script_Instance : GH_ScriptInstance
             foreach (Particle p in Particles)
             {
                 // clear particle neighbours list
-                //p.neighbours.Clear();
-                //p.neighFieldPts.Clear();
                 p.neighbours.Clear();
 
                 // Eventhandler function for RTree search
                 EventHandler<RTreeEventArgs> rTreeCallback = (object sender, RTreeEventArgs args) =>
                 {
                     p.neighbours.Add(args.Id);
-                    //p.neighbours.Add(ME.M.Vertices[args.Id]);
-                    //p.neighFieldPts.Add(new FieldPt(args.Id, ME.scalarField[args.Id]));
                 };
 
                 ME.MeshRTree.Search(new Sphere(ME.M.ClosestPoint(p.pos + p.vel * sensDist), seekRadius), rTreeCallback);
@@ -312,7 +307,6 @@ public class Script_Instance : GH_ScriptInstance
                     for (int i = range.Item1; i < range.Item2; i++)
                     {
                         for (int j = 0; j < Particles[i].neighbours.Count; j++)
-                            //ptsOut.Add(new GH_Point(Particles[i].neighbours[j]), new GH_Path(i));
                             ptsOut.Add(new GH_Point(ME.MeshPoints[Particles[i].neighbours[j]].Location), new GH_Path(i));
                     }
                 });
@@ -322,7 +316,6 @@ public class Script_Instance : GH_ScriptInstance
                 for (int i = 0; i < Particles.Count; i++)
                 {
                     for (int j = 0; j < Particles[i].neighbours.Count; j++)
-                        //ptsOut.Add(new GH_Point(Particles[i].neighbours[j]), new GH_Path(i));
                         ptsOut.Add(new GH_Point(ME.MeshPoints[Particles[i].neighbours[j]].Location), new GH_Path(i));
                 }
             }
@@ -415,14 +408,6 @@ public class Script_Instance : GH_ScriptInstance
             briL = pSystem.ME.scalarField[pL];
             briR = pSystem.ME.scalarField[pR];
             Vector3d desired = Vector3d.Zero;
-
-            //if (briL - briR < 0.01)
-            //{
-            //    Random rnd = new Random();
-            //    futPos.Rotate(visAng * (rnd.NextDouble() - 0.5), rotAxis);
-            //}
-            //else
-            //    futPos = briL > briR ? futPosL : futPosR;
 
             // find brightest sensor
             Vector3d direction = sensorC;
